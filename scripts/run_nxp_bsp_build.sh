@@ -24,7 +24,8 @@ fi
 #Check if BSP folder exists
 cd $DATA_DIR
 echo "We are at path: $(pwd)"
-BSP_DIR="fsl-community-bsp"
+
+echo "Using BSP_DIR=${BSP_DIR}"
 if [[ -d "${BSP_DIR}" ]]
 then
     echo "[OK] - BSP Folder ${BSP_DIR} exists on your filesystem."
@@ -36,7 +37,7 @@ fi
 #Download BSP from Git
 cd ${BSP_DIR}
 echo "We are at path: $(pwd)"
-repo init -u https://github.com/Freescale/fsl-community-bsp-platform -b ${BUILD_NXP_BSP_BRANCH}
+repo init -u ${BUILD_NXP_GIT_URL} -b ${BUILD_NXP_BSP_BRANCH}
 repo sync
 
 #COpy custom local config
