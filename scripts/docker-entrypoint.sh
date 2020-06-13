@@ -38,6 +38,7 @@ echo "[OK] - Starting container jobs..."
 echo "[Running...] - /bin/bash -c $@"
 exec /bin/bash -c "$@"
 STATUS=$?
+echo "[WARN] - Script should not have reached here!"
 
 if [ ${STATUS} -eq 0 ]; then
    echo "[SUCCESS] - Script returned status: ${STATUS}"
