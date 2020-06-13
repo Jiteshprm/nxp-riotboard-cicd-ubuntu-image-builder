@@ -9,7 +9,7 @@ services:
         - HTTP_FILE_PORT_EXTERNAL=${HTTP_FILE_PORT_EXTERNAL}
     #        - HTTP_HOSTNAME_EXTERNAL=${HTTP_HOSTNAME_EXTERNAL}
     #        - HTTP_HOSTNAME_INTERNAL=${HTTP_HOSTNAME_INTERNAL}
-    image: ${DOCKER_REPO}nxp-riotboard-image-builder:1.0
+    image: ${DOCKER_REPO}nxp-riotboard-image-builder:latest
     volumes:
       - ${DATA_DIR}:/home/dev/data
     ports:
