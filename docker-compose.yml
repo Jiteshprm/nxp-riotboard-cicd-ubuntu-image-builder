@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nxp-riotboard-image-builder:
+    build:
+      context: .
+      args:
+        - HTTP_FILE_PORT_INTERNAL=${HTTP_FILE_PORT_INTERNAL}
+        - HTTP_FILE_PORT_EXTERNAL=${HTTP_FILE_PORT_EXTERNAL}
+    #        - HTTP_HOSTNAME_EXTERNAL=${HTTP_HOSTNAME_EXTERNAL}
+    #        - HTTP_HOSTNAME_INTERNAL=${HTTP_HOSTNAME_INTERNAL}
+    image: ${DOCKER_REPO}nxp-riotboard-image-builder:1.0
+    volumes:
+      - ${DATA_DIR}:/home/dev/data
+    ports:
+      - ${HTTP_FILE_PORT_EXTERNAL}:${HTTP_FILE_PORT_INTERNAL}
+    environment:
+      - TZ=Europe/London
+      - DEBIAN_FRONTEND=noninteractive
+      - BUILD_NXP_BSP=1
+      - BUILD_NXP_IMAGE=1
