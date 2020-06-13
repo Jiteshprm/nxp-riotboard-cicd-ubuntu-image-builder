@@ -35,5 +35,4 @@ log/
 */target/*.*
 
 #Container data
-data/
 data/*
