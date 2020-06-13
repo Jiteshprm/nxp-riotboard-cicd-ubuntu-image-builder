@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set up Verbose bash mode for logging
+set -x
+
 #Log which shell we are in
 echo "Shell is: ${SHELL}"
 echo "Processes: $(ps ax)"
@@ -22,20 +25,20 @@ else
 fi
 
 #Check if BSP folder exists
-cd $DATA_DIR
+cd ${DATA_DIR}
 echo "We are at path: $(pwd)"
 
-echo "Using BSP_DIR=${BSP_DIR}"
-if [[ -d "${BSP_DIR}" ]]
+echo "Using BSP_DIR_NAME=${BSP_DIR_NAME}"
+if [[ -d "${BSP_DIR_NAME}" ]]
 then
-    echo "[OK] - BSP Folder ${BSP_DIR} exists on your filesystem."
+    echo "[OK] - BSP Folder ${BSP_DIR_NAME} exists on your filesystem."
 else
-    echo "[Creating...] - BSP Folder ${BSP_DIR}"
-    mkdir -p "${BSP_DIR}"
+    echo "[Creating...] - BSP Folder ${BSP_DIR_NAME}"
+    mkdir -p "${BSP_DIR_NAME}"
 fi
 
 #Download BSP from Git
-cd ${BSP_DIR}
+cd ${BSP_DIR_NAME}
 echo "We are at path: $(pwd)"
 repo init -u ${BUILD_NXP_GIT_URL} -b ${BUILD_NXP_BSP_BRANCH}
 repo sync

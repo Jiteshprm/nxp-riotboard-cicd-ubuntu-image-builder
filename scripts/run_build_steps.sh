@@ -8,8 +8,8 @@ echo "Shell is: ${SHELL}"
 echo "Processes: $(ps ax)"
 
 #Setup Paths
-DATA_DIR="${HOME}/data"
-LOG_DIR="${DATA_DIR}/logs"
+export DATA_DIR="${HOME}/data"
+export LOG_DIR="${DATA_DIR}/logs"
 
 echo "Run Status: BUILD_NXP_BSP=${BUILD_NXP_BSP} BUILD_NXP_IMAGE=${BUILD_NXP_IMAGE}"
 if [ ${BUILD_NXP_BSP} -eq 1 ]; then

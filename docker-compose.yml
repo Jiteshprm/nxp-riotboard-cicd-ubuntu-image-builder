@@ -20,4 +20,4 @@ services:
       - BUILD_NXP_BSP=1
       - BUILD_NXP_IMAGE=1
       - BUILD_NXP_GIT_URL=${BUILD_NXP_GIT_URL}
-      - BSP_DIR=fsl-community-bsp
+      - BSP_DIR_NAME=${BSP_DIR_NAME}
