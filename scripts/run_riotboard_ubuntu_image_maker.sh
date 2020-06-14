@@ -84,7 +84,7 @@ sudo rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR}/* ${UBUNTU_RIOTBOARD_MOUNT_DIR}/
 # Unmount and clean up devices
 sudo umount ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 sudo kpartx -dv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
-sudo umount ${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE}
+sudo umount ${UBUNTU_RASPBPI_MOUNT_DIR}
 # put u-boot 2 blocks into the disk image.  Don't leave out the notrunc option.
 #dd if=u-boot.imx of=sdcard.img bs=512 seek=2 conv=notrunc
 
