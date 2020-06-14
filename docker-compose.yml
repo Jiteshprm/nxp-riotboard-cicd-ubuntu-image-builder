@@ -14,6 +14,7 @@ services:
       - ${DATA_DIR}:/home/dev/data
     ports:
       - ${HTTP_FILE_PORT_EXTERNAL}:${HTTP_FILE_PORT_INTERNAL}
+    privileged: true
     environment:
       - TZ=Europe/London
       - DEBIAN_FRONTEND=noninteractive
