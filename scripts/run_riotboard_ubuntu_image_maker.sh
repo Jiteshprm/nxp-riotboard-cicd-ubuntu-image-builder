@@ -42,6 +42,9 @@ echo "We are at path: $(pwd)"
 
 cd ${UBUNTU_IMAGE_DIR}
 
+#List BAD constructed images from folder
+ls -lart "*-BAD.img"
+
 #Remove BAD constructed images from folder
 rm -rf "*-BAD.img"
 
