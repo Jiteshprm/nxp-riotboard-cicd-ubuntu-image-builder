@@ -12,6 +12,7 @@ services:
     image: ${DOCKER_REPO}nxp-riotboard-image-builder:latest
     volumes:
       - ${DATA_DIR}:/home/dev/data
+      - /lib/modules:/lib/modules
     ports:
       - ${HTTP_FILE_PORT_EXTERNAL}:${HTTP_FILE_PORT_INTERNAL}
     privileged: true
