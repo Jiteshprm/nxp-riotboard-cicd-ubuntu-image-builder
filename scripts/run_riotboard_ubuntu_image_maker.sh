@@ -88,7 +88,7 @@ sudo umount ${UBUNTU_RASPBPI_MOUNT_DIR}
 # put u-boot 2 blocks into the disk image.  Don't leave out the notrunc option.
 #dd if=u-boot.imx of=sdcard.img bs=512 seek=2 conv=notrunc
 
-STATUS=2
+STATUS=$?
 
 #Exit from container
 if [ ${STATUS} -eq 0 ]; then
