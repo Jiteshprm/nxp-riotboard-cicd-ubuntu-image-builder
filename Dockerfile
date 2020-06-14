@@ -33,6 +33,9 @@ RUN groupadd -g ${PGID} ${USERNAME} \
 RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN echo "sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN locale-gen en_US.UTF-8
 
 ENV LANG en_US.UTF-8
