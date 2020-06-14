@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y tzdata gawk wget git-core diffstat unzi
             texinfo gcc-multilib build-essential chrpath socat cpio python \
             python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping \
             python3-git xterm locales \
-            vim bash-completion screen qemu-user-static qemu-utils kpartx curl nodejs npm
+            vim bash-completion screen qemu-user-static qemu-utils kpartx curl nodejs npm xz-utils
 
 RUN groupadd -g ${PGID} ${USERNAME} \
             && useradd -u ${PUID} -g ${USERNAME} -d /home/${USERNAME} ${USERNAME} \

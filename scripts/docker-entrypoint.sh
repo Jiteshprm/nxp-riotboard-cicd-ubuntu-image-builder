@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. common.env
+
 DATA_DIR="${HOME}/data"
 LOG_DIR="${DATA_DIR}/logs"
 
@@ -29,7 +31,7 @@ LOG_FILENAME=${BUILD_LOG}$(date '+%Y%m%d_%H%M%S').log
 LOG_FILE=${LOG_DIR}/${LOG_FILENAME}
 echo "Logging into file: ${LOG_FILE}"
 echo "Log URL is: http://${HTTP_HOSTNAME_EXTERNAL}:${HTTP_FILE_PORT_EXTERNAL}/data/logs/${LOG_FILENAME}"
-exec >${LOG_FILE} 2>&1
+#exec >${LOG_FILE} 2>&1
 
 echo "[OK] - Starting container jobs..."
 

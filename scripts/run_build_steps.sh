@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Set up Verbose bash mode for logging
-set -x
+. common.env
 
 #Log which shell we are in
 echo "Shell is: ${SHELL}"
