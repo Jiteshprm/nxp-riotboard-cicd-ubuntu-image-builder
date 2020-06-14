@@ -78,7 +78,7 @@ sudo mkfs.ext4 -j ${UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE}
 # Mount the partition we formatted.
 sudo mount -t ext4 ${UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 # Unpack the root fs and kernel
-sudo rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
+sudo rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR}/* ${UBUNTU_RIOTBOARD_MOUNT_DIR}/
 # Copy the boot script to the top level
 #sudo cp boot.scr /mnt/sdcard/boot.scr
 # Unmount and clean up devices
