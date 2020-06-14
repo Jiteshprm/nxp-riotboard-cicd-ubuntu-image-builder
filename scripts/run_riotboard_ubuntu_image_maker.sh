@@ -2,6 +2,7 @@
 
 . common.env
 
+sudo modprobe loop
 #Log which shell we are in
 echo "Shell is: ${SHELL}"
 echo "Processes: $(ps ax)"
@@ -70,16 +71,18 @@ sudo kpartx -av ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
 #Get loop device nname
 UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE=$(losetup --list | grep "${UBUNTU_RIOTBOARD_IMAGE_FILENAME}" | cut -d ' ' -f1)
 echo "UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE: ${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE}"
+UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE=${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE/dev/dev/mapper}p1
+echo "UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE: ${UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE}"
 # format the partition. Make sure to use the correct device from the previous command.
-mkfs.ext4 -j ${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE}
+sudo mkfs.ext4 -j ${UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE}
 # Mount the partition we formatted.
-mount -t ext4 ${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
+sudo mount -t ext4 ${UBUNTU_RIOTBOARD_IMAGE_MAPPER_DEVICE} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 # Unpack the root fs and kernel
-rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
+sudo rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 # Copy the boot script to the top level
 #sudo cp boot.scr /mnt/sdcard/boot.scr
 # Unmount and clean up devices
-umount ${UBUNTU_RIOTBOARD_MOUNT_DIR}
+sudo umount ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 sudo kpartx -dv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
 # put u-boot 2 blocks into the disk image.  Don't leave out the notrunc option.
 #dd if=u-boot.imx of=sdcard.img bs=512 seek=2 conv=notrunc
