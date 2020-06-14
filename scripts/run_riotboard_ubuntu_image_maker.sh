@@ -17,9 +17,6 @@ then
 else
     echo "[Creating...] - Image Folder ${UBUNTU_RASPBPI_IMAGE_DIR}"
     mkdir -p "${UBUNTU_RASPBPI_IMAGE_DIR}"
-    if [[ $? -ne 0 ]] ; then
-      exit 11
-    fi
 fi
 
 if [[ -d "${UBUNTU_RASPBPI_MOUNT_DIR}" ]]
@@ -28,9 +25,6 @@ then
 else
     echo "[Creating...] - Mount Folder ${UBUNTU_RASPBPI_MOUNT_DIR}"
     mkdir -p "${UBUNTU_RASPBPI_MOUNT_DIR}"
-    if [[ $? -ne 0 ]] ; then
-      exit 12
-    fi
 fi
 
 if [[ -d "${UBUNTU_RIOTBOARD_MOUNT_DIR}" ]]
@@ -39,9 +33,6 @@ then
 else
     echo "[Creating...] - Mount Folder ${UBUNTU_RIOTBOARD_MOUNT_DIR}"
     mkdir -p "${UBUNTU_RIOTBOARD_MOUNT_DIR}"
-    if [[ $? -ne 0 ]] ; then
-      exit 13
-    fi
 fi
 
 echo "We are at path: $(pwd)"

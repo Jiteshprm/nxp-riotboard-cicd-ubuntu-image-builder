@@ -18,9 +18,6 @@ else
   echo "[Downloading..] - File ~/bin/repo does not exists on your filesystem."
   rm -rf ${REPO_DIR}
   mkdir -p ${REPO_DIR}
-  if [[ $? -ne 0 ]] ; then
-    exit 20
-  fi
   curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ${REPO_FILE}
   chmod a+x ${REPO_FILE}
   PATH=${PATH}:${REPO_DIR}
@@ -37,9 +34,6 @@ then
 else
     echo "[Creating...] - BSP Folder ${BSP_DIR_NAME}"
     mkdir -p "${BSP_DIR_NAME}"
-    if [[ $? -ne 0 ]] ; then
-      exit 21
-    fi
 fi
 
 #Download BSP from Git
