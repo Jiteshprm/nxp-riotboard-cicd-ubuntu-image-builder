@@ -66,7 +66,7 @@ sfdisk --force ${UBUNTU_RIOTBOARD_IMAGE_FILENAME} << EOF
 10M,,83
 EOF
 # create devices from the disk image
-kpartx -av ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
+sudo kpartx -av ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
 #Get loop device nname
 UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE=$(losetup --list | grep "${UBUNTU_RIOTBOARD_IMAGE_FILENAME}" | cut -d ' ' -f1)
 echo "UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE: ${UBUNTU_RIOTBOARD_IMAGE_LOOP_DEVICE}"
@@ -80,7 +80,7 @@ rsync -ap ${UBUNTU_RASPBPI_MOUNT_DIR} ${UBUNTU_RIOTBOARD_MOUNT_DIR}
 #sudo cp boot.scr /mnt/sdcard/boot.scr
 # Unmount and clean up devices
 umount ${UBUNTU_RIOTBOARD_MOUNT_DIR}
-kpartx -dv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
+sudo kpartx -dv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
 # put u-boot 2 blocks into the disk image.  Don't leave out the notrunc option.
 #dd if=u-boot.imx of=sdcard.img bs=512 seek=2 conv=notrunc
 
