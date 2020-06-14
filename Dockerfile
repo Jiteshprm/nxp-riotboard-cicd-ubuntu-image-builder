@@ -21,12 +21,17 @@ RUN apt-get update && apt-get install -y tzdata gawk wget git-core diffstat unzi
             texinfo gcc-multilib build-essential chrpath socat cpio python \
             python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping \
             python3-git xterm locales \
-            vim bash-completion screen qemu-user-static qemu-utils kpartx curl nodejs npm xz-utils
+            vim bash-completion screen qemu-user-static qemu-utils kpartx curl nodejs npm xz-utils sudo
 
 RUN groupadd -g ${PGID} ${USERNAME} \
             && useradd -u ${PUID} -g ${USERNAME} -d /home/${USERNAME} ${USERNAME} \
+            && echo "${USERNAME}:${USERNAME}" | chpasswd \
             && mkdir -p /home/${USERNAME} \
-            && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+            && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME} \
+            && adduser ${USERNAME} sudo
+
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN locale-gen en_US.UTF-8
 
