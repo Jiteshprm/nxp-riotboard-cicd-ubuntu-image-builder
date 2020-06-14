@@ -2,22 +2,24 @@
 
 . common.env
 
-sudo modprobe loop
 #Log which shell we are in
 echo "Shell is: ${SHELL}"
 echo "Processes: $(ps ax)"
 
-UBUNTU_RASPBPI_IMAGE_DIR="${DATA_DIR}/image"
+UBUNTU_IMAGE_DIR="${DATA_DIR}/image"
 
-UBUNTU_RASPBPI_MOUNT_DIR="${UBUNTU_RASPBPI_IMAGE_DIR}/raspb"
-UBUNTU_RIOTBOARD_MOUNT_DIR="${UBUNTU_RASPBPI_IMAGE_DIR}/riotboard"
+UBUNTU_RASPBPI_MOUNT_DIR="${UBUNTU_IMAGE_DIR}/raspb"
+UBUNTU_RIOTBOARD_MOUNT_DIR="${UBUNTU_IMAGE_DIR}/riotboard"
 
-if [[ -d "${UBUNTU_RASPBPI_IMAGE_DIR}" ]]
+#Add loop device modules in image
+sudo modprobe loop
+
+if [[ -d "${UBUNTU_IMAGE_DIR}" ]]
 then
-    echo "[OK] - Image Folder ${UBUNTU_RASPBPI_IMAGE_DIR} exists on your filesystem"
+    echo "[OK] - Image Folder ${UBUNTU_IMAGE_DIR} exists on your filesystem"
 else
-    echo "[Creating...] - Image Folder ${UBUNTU_RASPBPI_IMAGE_DIR}"
-    mkdir -p "${UBUNTU_RASPBPI_IMAGE_DIR}"
+    echo "[Creating...] - Image Folder ${UBUNTU_IMAGE_DIR}"
+    mkdir -p "${UBUNTU_IMAGE_DIR}"
 fi
 
 if [[ -d "${UBUNTU_RASPBPI_MOUNT_DIR}" ]]
@@ -38,7 +40,10 @@ fi
 
 echo "We are at path: $(pwd)"
 
-cd ${UBUNTU_RASPBPI_IMAGE_DIR}
+cd ${UBUNTU_IMAGE_DIR}
+
+#Remove BAD constructed images from folder
+rm -rf "*-BAD.img"
 
 echo "We are at path: $(pwd)"
 
@@ -56,7 +61,7 @@ file ${UBUNTU_RASPBPI_IMAGE_FILENAME}
 #2nd partition 526336*512=269484032
 sudo mount -v -o offset=269484032 -t ext4  ${UBUNTU_RASPBPI_IMAGE_FILENAME} ${UBUNTU_RASPBPI_MOUNT_DIR}
 
-UBUNTU_RIOTBOARD_IMAGE_FILENAME=${UBUNTU_RIOTBOARD_IMAGE_FILENAME_PREFIX}$(date '+%Y%m%d-%H%M%S').img
+UBUNTU_RIOTBOARD_IMAGE_FILENAME="${UBUNTU_RIOTBOARD_IMAGE_FILENAME_PREFIX}$(date '+%Y%m%d-%H%M%S')-BAD.img"
 
 echo "UBUNTU_RIOTBOARD_IMAGE_FILENAME: ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}"
 
@@ -87,6 +92,8 @@ sudo kpartx -dv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME}
 sudo umount ${UBUNTU_RASPBPI_MOUNT_DIR}
 # put u-boot 2 blocks into the disk image.  Don't leave out the notrunc option.
 #dd if=u-boot.imx of=sdcard.img bs=512 seek=2 conv=notrunc
+
+mv ${UBUNTU_RIOTBOARD_IMAGE_FILENAME} ${UBUNTU_RIOTBOARD_IMAGE_FILENAME/BAD/OK}
 
 STATUS=$?
 
